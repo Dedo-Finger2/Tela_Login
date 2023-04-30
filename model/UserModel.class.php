@@ -106,4 +106,29 @@ class UserModel
 
     }
 
+    /**
+     * Filtra todos os usuários
+     * @return array - Array com todos os usuários cadastrados no sistema
+     */
+    public function getAll()
+    {
+        $this->conexao = Conexao::conectar();
+        if (get_class($this->conexao) == "mysqli") {
+            
+            $allUsers = $this->conexao->prepare("SELECT * FROM users");
+
+            // Executa o comando SQL e retorna tudo dentro de um array associativo
+            $allUsers->execute();
+            $result = $allUsers->get_result();
+            $users = array();
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+            return $users;
+        } else {
+            // Trata outros tipos de erro
+            return $this->conexao;
+        }
+    }
+
 }

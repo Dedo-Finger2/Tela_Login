@@ -1,3 +1,0 @@
-<?php
-
-    // View do usuários
