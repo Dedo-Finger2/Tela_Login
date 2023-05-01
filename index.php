@@ -1,21 +1,3 @@
-<?php
-// Verifique se o formulário de login foi enviado
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtenha as credenciais do usuário do formulário
-    $email = $_POST['email'];
-    $senha = $_POST['password'];
-
-    // Verifique se as credenciais são válidas
-    if ($email == 'abc@abc' && $senha == '123456') {
-        // Se as credenciais forem válidas, redirecione o usuário para a página protegida
-        header('Location: ./controller/tratament.php');
-        exit;
-    } else {
-        $error_message = true;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -103,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row justify-content-start align-items-center" style="height:100vh">
             <div class="col-md-3 col-sm-6 offset-md-1 form-container">
                 <h1 class="text-center">Login</h1>
-                <form class="needs-validation" method="post" name="data" novalidate>
+                <form class="needs-validation" method="post" name="data" action="./controller/tratament.php" novalidate>
                     <div class="mb-3">
                         <label for="validationCustomUsername" class="form-label">Username</label>
                         <div class="input-group has-validation">
@@ -170,7 +152,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Inclua o Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
+    <?php
+
+    if (isset($_GET['erro'])) {
+        echo
+            "<script>
+                $('#meuModal').modal('show');
+            </script>";
+    }
+    ?>
     <script>
         // Ativa a validação do Bootstrap no formulário
         (function () {
@@ -194,14 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 })
         })()
     </script>
-    <?php
-        if ($error_message) {
-            echo 
-            "<script>
-                $('#meuModal').modal('show');
-            </script>";
-        }
-    ?>
 </body>
 
 </html>
