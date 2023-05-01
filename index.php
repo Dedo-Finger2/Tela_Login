@@ -1,3 +1,16 @@
+<?php
+
+    session_start();
+
+    if (isset($_GET['erro'])) {
+        $mensagem = "Usuário inválido!";
+    } elseif (isset($_GET['logout'])) {
+        $mensagem = "Usuário deslogado";
+        session_destroy(); 
+    }
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -67,7 +80,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Usuário inválido!</p>
+                    <p><?= $mensagem ?></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -155,6 +168,13 @@
     <?php
 
     if (isset($_GET['erro'])) {
+        $mensagem = "USUÁRIO INVÁLIDO";
+        echo
+            "<script>
+                $('#meuModal').modal('show');
+            </script>";
+    } elseif (isset($_GET['logout'])) {
+        $mensagem = "SESSÃO ENCERRADA!";
         echo
             "<script>
                 $('#meuModal').modal('show');
